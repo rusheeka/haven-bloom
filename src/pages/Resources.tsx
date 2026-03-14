@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { helplines } from "@/lib/sanctuary-data";
-import NavigationOrbs from "@/components/NavigationOrbs";
+import TopBar from "@/components/TopBar";
 
 export default function Resources() {
   return (
-    <div className="min-h-screen flex flex-col items-center px-6 pt-[8vh] pb-36 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-warmth/5 via-background to-background pointer-events-none" />
+    <div className="min-h-screen page-gradient">
+      <TopBar />
 
-      <div className="relative z-10 w-full max-w-md">
+      <div className="pt-28 md:pt-20 pb-12 px-6 max-w-md mx-auto">
         <h1 className="text-2xl font-display text-foreground mb-2">You Are Not Alone</h1>
         <p className="text-sm font-ui text-muted-foreground mb-8 prose-safe">
           If you need to talk to someone, these resources are here for you. All calls are confidential.
@@ -39,8 +39,6 @@ export default function Resources() {
           <p className="text-xs font-ui text-muted-foreground mt-2">— Tori Amos</p>
         </div>
       </div>
-
-      <NavigationOrbs />
     </div>
   );
 }

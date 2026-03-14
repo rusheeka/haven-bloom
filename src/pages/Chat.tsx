@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { useSanctuary } from "@/context/SanctuaryContext";
-import NavigationOrbs from "@/components/NavigationOrbs";
+import TopBar from "@/components/TopBar";
 
 const rooms = [
   { id: "general", label: "General Support", emoji: "💙" },
@@ -26,7 +26,7 @@ export default function Chat() {
   const [crisisAlert, setCrisisAlert] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const allMessages = [...sampleMessages, ...user.chatMessages].filter(m => m.room === activeRoom);
+  const allMessages = [...sampleMessages, ...user.chatMessages].filter((m) => m.room === activeRoom);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -34,14 +34,11 @@ export default function Chat() {
 
   const handleSend = () => {
     if (!message.trim()) return;
-    
-    // Crisis keyword check
     const lower = message.toLowerCase();
-    if (crisisKeywords.some(kw => lower.includes(kw))) {
+    if (crisisKeywords.some((kw) => lower.includes(kw))) {
       setCrisisAlert(true);
       return;
     }
-    
     addChatMessage(message.trim(), activeRoom);
     setMessage("");
   };
@@ -53,50 +50,50 @@ export default function Chat() {
 
   if (!agreed) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-6 pb-36">
-        <div className="max-w-sm text-center">
-          <h1 className="text-2xl font-display text-foreground mb-4">Safe Chat</h1>
-          <div className="bg-card/50 backdrop-blur-xl rounded-orb p-6 shadow-ceramic mb-6">
-            <p className="text-sm font-ui text-foreground/80 leading-relaxed mb-4">
-              This is an anonymous, supportive space. Before entering:
-            </p>
-            <ul className="text-xs font-ui text-muted-foreground text-left space-y-2 mb-4">
-              <li>• Be kind and supportive to others</li>
-              <li>• No sharing of personal identifying information</li>
-              <li>• No harmful or triggering language</li>
-              <li>• Report any concerning messages</li>
-              <li>• If you're in crisis, please reach out to a helpline</li>
-            </ul>
+      <div className="min-h-screen page-gradient">
+        <TopBar />
+        <div className="pt-28 md:pt-20 pb-12 px-6 flex flex-col items-center justify-center min-h-[80vh]">
+          <div className="max-w-sm text-center">
+            <h1 className="text-2xl font-display text-foreground mb-4">Safe Chat</h1>
+            <div className="bg-card/50 backdrop-blur-xl rounded-orb p-6 shadow-ceramic mb-6">
+              <p className="text-sm font-ui text-foreground/80 leading-relaxed mb-4">
+                This is an anonymous, supportive space. Before entering:
+              </p>
+              <ul className="text-xs font-ui text-muted-foreground text-left space-y-2 mb-4">
+                <li>• Be kind and supportive to others</li>
+                <li>• No sharing of personal identifying information</li>
+                <li>• No harmful or triggering language</li>
+                <li>• Report any concerning messages</li>
+                <li>• If you're in crisis, please reach out to a helpline</li>
+              </ul>
+            </div>
+            <motion.button
+              onClick={handleAgree}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="bg-calm/20 hover:bg-calm/30 text-foreground font-ui font-semibold px-8 py-3 rounded-full shadow-ceramic text-sm"
+            >
+              I understand — Enter Chat
+            </motion.button>
           </div>
-          <motion.button
-            onClick={handleAgree}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="bg-calm/20 hover:bg-calm/30 text-foreground font-ui font-semibold px-8 py-3 rounded-full shadow-ceramic text-sm"
-          >
-            I understand — Enter Chat
-          </motion.button>
         </div>
-        <NavigationOrbs />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col px-6 pt-[6vh] pb-36 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-calm/5 via-background to-background pointer-events-none" />
+    <div className="min-h-screen page-gradient">
+      <TopBar />
 
-      <div className="relative z-10 w-full max-w-md mx-auto flex flex-col h-[75vh]">
+      <div className="pt-28 md:pt-20 pb-12 px-6 max-w-md mx-auto flex flex-col h-[80vh]">
         <h1 className="text-xl font-display text-foreground mb-1">Safe Chat</h1>
 
-        {/* Crisis resources pinned */}
         <div className="bg-warmth/10 rounded-pebble px-3 py-2 mb-3 text-[10px] font-ui text-muted-foreground">
           Need help now? <a href="https://988lifeline.org" target="_blank" rel="noopener" className="underline text-foreground">988 Lifeline</a> · <a href="https://www.rainn.org" target="_blank" rel="noopener" className="underline text-foreground">RAINN</a>
         </div>
 
-        {/* Room tabs */}
         <div className="flex gap-1.5 mb-3 overflow-x-auto pb-1">
-          {rooms.map(room => (
+          {rooms.map((room) => (
             <button
               key={room.id}
               onClick={() => setActiveRoom(room.id)}
@@ -110,10 +107,9 @@ export default function Chat() {
           ))}
         </div>
 
-        {/* Messages */}
         <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-2 mb-3 pr-1">
           <AnimatePresence>
-            {allMessages.map(msg => {
+            {allMessages.map((msg) => {
               const isOwn = msg.author === user.username;
               return (
                 <motion.div
@@ -124,16 +120,12 @@ export default function Chat() {
                   className={`flex ${isOwn ? "justify-end" : "justify-start"}`}
                 >
                   <div className={`max-w-[80%] p-3 shadow-sm ${
-                    isOwn
-                      ? "bg-warmth/20 rounded-pebble rounded-br-lg"
-                      : "bg-card/60 rounded-pebble rounded-bl-lg"
+                    isOwn ? "bg-warmth/20 rounded-pebble rounded-br-lg" : "bg-card/60 rounded-pebble rounded-bl-lg"
                   }`}>
-                    {!isOwn && (
-                      <p className="text-[10px] font-ui font-semibold text-bloom mb-0.5">{msg.author}</p>
-                    )}
+                    {!isOwn && <p className="text-[10px] font-ui font-semibold text-bloom mb-0.5">{msg.author}</p>}
                     <p className="text-sm font-ui text-foreground/90 leading-relaxed">{msg.text}</p>
                     <div className="flex gap-2 mt-1.5">
-                      {(["💙", "🙏", "🌸", "🤗"] as const).map(type => (
+                      {(["💙", "🙏", "🌸", "🤗"] as const).map((type) => (
                         <motion.button
                           key={type}
                           whileHover={{ scale: 1.2 }}
@@ -153,7 +145,6 @@ export default function Chat() {
           </AnimatePresence>
         </div>
 
-        {/* Crisis alert modal */}
         <AnimatePresence>
           {crisisAlert && (
             <motion.div
@@ -183,12 +174,11 @@ export default function Chat() {
           )}
         </AnimatePresence>
 
-        {/* Input */}
         <div className="flex gap-2">
           <input
             value={message}
-            onChange={e => setMessage(e.target.value)}
-            onKeyDown={e => e.key === "Enter" && handleSend()}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
             placeholder="Share something gentle..."
             maxLength={300}
             className="flex-1 bg-card/50 backdrop-blur-xl rounded-full px-4 py-2.5 font-ui text-sm text-foreground placeholder:text-muted-foreground/40 border-none outline-none shadow-ceramic focus:ring-2 focus:ring-ring/20"
@@ -204,8 +194,6 @@ export default function Chat() {
           </motion.button>
         </div>
       </div>
-
-      <NavigationOrbs />
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { SanctuaryProvider } from "@/context/SanctuaryContext";
+import { SanctuaryProvider, useSanctuary } from "@/context/SanctuaryContext";
 import QuickExit from "@/components/QuickExit";
-import Index from "./pages/Index";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
 import Garden from "./pages/Garden";
 import Breathing from "./pages/Breathing";
 import Journal from "./pages/Journal";
@@ -16,6 +17,32 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { isLoggedIn } = useSanctuary();
+  if (!isLoggedIn) return <Navigate to="/login" replace />;
+  return <>{children}</>;
+}
+
+function AppRoutes() {
+  const { isLoggedIn } = useSanctuary();
+
+  return (
+    <Routes>
+      <Route path="/login" element={isLoggedIn ? <Navigate to="/home" replace /> : <Login />} />
+      <Route path="/" element={<Navigate to={isLoggedIn ? "/home" : "/login"} replace />} />
+      <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+      <Route path="/garden" element={<ProtectedRoute><Garden /></ProtectedRoute>} />
+      <Route path="/breathing" element={<ProtectedRoute><Breathing /></ProtectedRoute>} />
+      <Route path="/journal" element={<ProtectedRoute><Journal /></ProtectedRoute>} />
+      <Route path="/affirmations" element={<ProtectedRoute><Affirmations /></ProtectedRoute>} />
+      <Route path="/stories" element={<ProtectedRoute><StoryGarden /></ProtectedRoute>} />
+      <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
+      <Route path="/resources" element={<ProtectedRoute><Resources /></ProtectedRoute>} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -23,17 +50,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <QuickExit />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/garden" element={<Garden />} />
-            <Route path="/breathing" element={<Breathing />} />
-            <Route path="/journal" element={<Journal />} />
-            <Route path="/affirmations" element={<Affirmations />} />
-            <Route path="/stories" element={<StoryGarden />} />
-            <Route path="/chat" element={<Chat />} />
-            <Route path="/resources" element={<Resources />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <AppRoutes />
         </BrowserRouter>
       </SanctuaryProvider>
     </TooltipProvider>

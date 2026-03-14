@@ -2,13 +2,14 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const navItems = [
-{ path: "/garden", label: "Garden", emoji: "🌱" },
-{ path: "/breathing", label: "Breathe", emoji: "🫧" },
-{ path: "/journal", label: "Journal", emoji: "📔" },
-{ path: "/affirmations", label: "Affirm", emoji: "✨" },
-{ path: "/stories", label: "Stories", emoji: "🌸" },
-{ path: "/chat", label: "Chat", emoji: "💬" },
-{ path: "/resources", label: "Help", emoji: "🤍" }];
+  { path: "/garden", label: "Garden", emoji: "🌱" },
+  { path: "/breathing", label: "Hold My Hand", emoji: "🫧" },
+  { path: "/journal", label: "Journal", emoji: "📔" },
+  { path: "/affirmations", label: "Affirm", emoji: "✨" },
+  { path: "/stories", label: "Story Chain", emoji: "🌸" },
+  { path: "/chat", label: "Chat", emoji: "💬" },
+  { path: "/resources", label: "Help", emoji: "🤍" },
+];
 
 
 export default function NavigationOrbs() {

@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useSanctuary } from "@/context/SanctuaryContext";
-import NavigationOrbs from "@/components/NavigationOrbs";
+import TopBar from "@/components/TopBar";
 
 const sampleStories = [
   { id: "s1", text: "Today I walked outside for the first time in weeks. The sun felt like a gentle friend.", author: "BraveWillow_321", timestamp: new Date().toISOString(), warmth: { "🌱": 4, "💚": 7, "🤍": 2 } },
@@ -24,10 +24,10 @@ export default function StoryGarden() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center px-6 pt-[8vh] pb-36 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-bloom/5 via-background to-background pointer-events-none" />
+    <div className="min-h-screen page-gradient">
+      <TopBar />
 
-      <div className="relative z-10 w-full max-w-md">
+      <div className="pt-28 md:pt-20 pb-12 px-6 max-w-md mx-auto">
         <h1 className="text-2xl font-display text-foreground mb-2">Story Garden</h1>
         <p className="text-sm font-ui text-muted-foreground mb-6">
           Anonymous stories blooming together. +3 petals for sharing.
@@ -52,7 +52,7 @@ export default function StoryGarden() {
             >
               <textarea
                 value={newStory}
-                onChange={e => setNewStory(e.target.value)}
+                onChange={(e) => setNewStory(e.target.value)}
                 placeholder="Share your story anonymously..."
                 maxLength={500}
                 className="w-full h-28 bg-card/50 backdrop-blur-xl rounded-orb p-4 font-journal text-lg text-foreground placeholder:text-muted-foreground/40 border-none outline-none resize-none shadow-ceramic mb-3"
@@ -70,7 +70,7 @@ export default function StoryGarden() {
         </AnimatePresence>
 
         <div className="flex flex-col gap-3">
-          {allStories.map(story => (
+          {allStories.map((story) => (
             <motion.div
               key={story.id}
               initial={{ opacity: 0, y: 10 }}
@@ -80,7 +80,7 @@ export default function StoryGarden() {
               <p className="text-sm font-ui font-semibold text-bloom mb-1">{story.author}</p>
               <p className="text-base font-ui text-foreground/90 leading-relaxed mb-3">{story.text}</p>
               <div className="flex gap-3">
-                {(["🌱", "💚", "🤍"] as const).map(type => (
+                {(["🌱", "💚", "🤍"] as const).map((type) => (
                   <motion.button
                     key={type}
                     whileHover={{ scale: 1.15 }}
@@ -97,8 +97,6 @@ export default function StoryGarden() {
           ))}
         </div>
       </div>
-
-      <NavigationOrbs />
     </div>
   );
 }

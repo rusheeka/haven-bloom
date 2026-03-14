@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useSanctuary } from "@/context/SanctuaryContext";
 import { moods } from "@/lib/sanctuary-data";
-import NavigationOrbs from "@/components/NavigationOrbs";
+import TopBar from "@/components/TopBar";
 
 export default function Journal() {
   const { user, addJournalEntry } = useSanctuary();
@@ -18,18 +18,17 @@ export default function Journal() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center px-6 pt-[8vh] pb-36 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-bloom/5 via-background to-background pointer-events-none" />
+    <div className="min-h-screen page-gradient">
+      <TopBar />
 
-      <div className="relative z-10 w-full max-w-md">
+      <div className="pt-28 md:pt-20 pb-12 px-6 max-w-md mx-auto">
         <h1 className="text-2xl font-display text-foreground mb-2">Private Journal</h1>
         <p className="text-sm font-ui text-muted-foreground mb-6">
           A safe space for your thoughts. +2 petals per entry.
         </p>
 
-        {/* Tab switcher */}
         <div className="flex gap-2 mb-6">
-          {(["write", "history"] as const).map(tab => (
+          {(["write", "history"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setView(tab)}
@@ -43,25 +42,18 @@ export default function Journal() {
         </div>
 
         {view === "write" ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex flex-col gap-4"
-          >
-            {/* Mood picker */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
             <div>
               <p className="text-xs font-ui text-muted-foreground mb-2">How are you feeling?</p>
               <div className="flex flex-wrap gap-2">
-                {moods.map(m => (
+                {moods.map((m) => (
                   <motion.button
                     key={m.label}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setSelectedMood(m.emoji)}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-ui transition-all duration-300 ${
-                      selectedMood === m.emoji
-                        ? "bg-primary/20 shadow-ceramic"
-                        : "bg-muted/40 hover:bg-muted/60"
+                      selectedMood === m.emoji ? "bg-primary/20 shadow-ceramic" : "bg-muted/40 hover:bg-muted/60"
                     }`}
                   >
                     <span>{m.emoji}</span>
@@ -73,7 +65,7 @@ export default function Journal() {
 
             <textarea
               value={text}
-              onChange={e => setText(e.target.value)}
+              onChange={(e) => setText(e.target.value)}
               placeholder="Write freely. No one will see this but you..."
               className="w-full h-40 bg-card/50 backdrop-blur-xl rounded-orb p-4 font-journal text-lg text-foreground placeholder:text-muted-foreground/40 border-none outline-none resize-none shadow-ceramic focus:ring-2 focus:ring-ring/20 transition-all duration-300"
             />
@@ -96,7 +88,7 @@ export default function Journal() {
               </p>
             ) : (
               <AnimatePresence>
-                {user.journalEntries.map(entry => (
+                {user.journalEntries.map((entry) => (
                   <motion.div
                     key={entry.id}
                     initial={{ opacity: 0, y: 10 }}
@@ -109,9 +101,7 @@ export default function Journal() {
                         {new Date(entry.date).toLocaleDateString()}
                       </span>
                     </div>
-                    <p className="font-journal text-base text-foreground/90 leading-relaxed">
-                      {entry.text}
-                    </p>
+                    <p className="font-journal text-base text-foreground/90 leading-relaxed">{entry.text}</p>
                   </motion.div>
                 ))}
               </AnimatePresence>
@@ -119,8 +109,6 @@ export default function Journal() {
           </div>
         )}
       </div>
-
-      <NavigationOrbs />
     </div>
   );
 }

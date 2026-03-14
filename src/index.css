@@ -138,6 +138,14 @@
     @apply rounded-[24px] shadow-ceramic;
   }
 
+  .page-gradient {
+    background: linear-gradient(135deg, hsl(340 80% 80%), hsl(300 60% 82%), hsl(260 60% 85%));
+  }
+
+  .dark .page-gradient {
+    background: linear-gradient(135deg, hsl(330 70% 20%), hsl(280 40% 15%), hsl(240 30% 12%));
+  }
+
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }

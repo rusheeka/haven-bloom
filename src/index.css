@@ -2,150 +2,235 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── PIXEL FONTS: Press Start 2P + VT323 ───────────────── */
+
 @layer base {
   :root {
-    --background: 340 30% 96%;
-    --foreground: 340 15% 18%;
+    /* ── Light Pink + Purple Pastel Pixel Palette ── */
+    --background: 310 60% 96%;          /* very light pink */
+    --foreground: 280 50% 28%;          /* deep purple text */
 
-    --card: 340 25% 94%;
-    --card-foreground: 340 15% 18%;
+    --card: 300 40% 93%;
+    --card-foreground: 280 50% 28%;
 
-    --popover: 340 30% 96%;
-    --popover-foreground: 340 15% 18%;
+    --popover: 300 40% 93%;
+    --popover-foreground: 280 50% 28%;
 
-    --primary: 340 45% 75%;
-    --primary-foreground: 340 15% 18%;
+    --primary: 320 80% 65%;             /* bright bubblegum pink */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 150 30% 88%;
-    --secondary-foreground: 150 20% 25%;
+    --secondary: 270 60% 75%;           /* light purple */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 340 15% 90%;
-    --muted-foreground: 340 10% 50%;
+    --muted: 310 30% 90%;
+    --muted-foreground: 280 30% 52%;
 
-    --accent: 340 40% 82%;
-    --accent-foreground: 340 15% 18%;
+    --accent: 290 70% 72%;              /* violet-pink */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 30 30% 75%;
-    --destructive-foreground: 30 20% 20%;
+    --destructive: 0 80% 65%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 340 15% 88%;
-    --input: 340 15% 88%;
-    --ring: 340 30% 70%;
+    --border: 310 60% 70%;              /* pink border */
+    --input: 310 30% 90%;
+    --ring: 320 80% 65%;
 
-    --radius: 1.5rem;
+    /* NO border radius — pixel sharp */
+    --radius: 0px;
 
-    --bloom: 340 45% 75%;
-    --growth: 150 30% 82%;
-    --warmth: 30 50% 82%;
-    --calm: 220 25% 82%;
+    /* Retro theme color vars */
+    --bloom: 320 80% 65%;               /* hot pink */
+    --growth: 260 60% 68%;              /* lavender */
+    --warmth: 340 70% 72%;              /* rose */
+    --calm: 280 60% 72%;               /* purple */
 
-    --shadow-ceramic: 0 10px 30px -10px hsl(340 10% 30% / 0.08), 0 4px 10px -5px hsl(340 10% 30% / 0.03);
+    /* Pixel block shadow — pink offset shadow */
+    --shadow-ceramic: 4px 4px 0px 0px hsl(320 70% 55%), 8px 8px 0px 0px hsl(280 50% 65% / 0.4);
 
-    --sidebar-background: 340 25% 95%;
-    --sidebar-foreground: 340 15% 30%;
-    --sidebar-primary: 340 45% 75%;
-    --sidebar-primary-foreground: 340 15% 18%;
-    --sidebar-accent: 340 20% 90%;
-    --sidebar-accent-foreground: 340 15% 25%;
-    --sidebar-border: 340 15% 88%;
-    --sidebar-ring: 340 30% 70%;
+    --sidebar-background: 300 40% 93%;
+    --sidebar-foreground: 280 50% 28%;
+    --sidebar-primary: 320 80% 65%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 310 30% 90%;
+    --sidebar-accent-foreground: 280 50% 28%;
+    --sidebar-border: 310 60% 70%;
+    --sidebar-ring: 320 80% 65%;
   }
 
+  /* Dark mode — hot pink to black pixel palette */
   .dark {
-    --background: 240 20% 10%;
-    --foreground: 240 10% 88%;
+    --background: 0 0% 5%;               /* near black */
+    --foreground: 330 100% 72%;          /* hot pink text */
 
-    --card: 240 18% 14%;
-    --card-foreground: 240 10% 88%;
+    --card: 0 0% 10%;
+    --card-foreground: 330 100% 72%;
 
-    --popover: 240 18% 14%;
-    --popover-foreground: 240 10% 88%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 330 100% 72%;
 
-    --primary: 330 70% 55%;
-    --primary-foreground: 240 10% 95%;
+    --primary: 330 100% 62%;             /* hot pink */
+    --primary-foreground: 0 0% 5%;
 
-    --secondary: 240 15% 20%;
-    --secondary-foreground: 240 10% 85%;
+    --secondary: 315 80% 42%;            /* deep pink */
+    --secondary-foreground: 330 100% 90%;
 
-    --muted: 240 15% 18%;
-    --muted-foreground: 240 10% 55%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 330 60% 55%;
 
-    --accent: 330 50% 45%;
-    --accent-foreground: 240 10% 95%;
+    --accent: 350 100% 65%;              /* neon rose */
+    --accent-foreground: 0 0% 5%;
 
-    --destructive: 30 30% 40%;
-    --destructive-foreground: 30 20% 90%;
+    --destructive: 0 100% 60%;
+    --destructive-foreground: 0 0% 5%;
 
-    --border: 240 15% 20%;
-    --input: 240 15% 20%;
-    --ring: 330 50% 50%;
+    --border: 330 100% 50%;              /* hot pink border */
+    --input: 0 0% 15%;
+    --ring: 330 100% 62%;
 
-    --bloom: 330 70% 55%;
-    --growth: 150 30% 45%;
-    --warmth: 30 50% 55%;
-    --calm: 220 30% 50%;
+    --radius: 0px;
 
-    --shadow-ceramic: 0 10px 30px -10px hsl(0 0% 0% / 0.3), 0 4px 10px -5px hsl(0 0% 0% / 0.15);
+    --bloom: 330 100% 62%;
+    --growth: 315 80% 55%;
+    --warmth: 350 100% 65%;
+    --calm: 300 80% 58%;
 
-    --sidebar-background: 240 18% 12%;
-    --sidebar-foreground: 240 10% 85%;
-    --sidebar-primary: 330 70% 55%;
-    --sidebar-primary-foreground: 240 10% 95%;
-    --sidebar-accent: 240 15% 18%;
-    --sidebar-accent-foreground: 240 10% 85%;
-    --sidebar-border: 240 15% 18%;
-    --sidebar-ring: 330 50% 50%;
+    --shadow-ceramic: 4px 4px 0px 0px hsl(330 100% 50%), 8px 8px 0px 0px hsl(330 100% 30% / 0.5);
+
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 330 100% 72%;
+    --sidebar-primary: 330 100% 62%;
+    --sidebar-primary-foreground: 0 0% 5%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 330 100% 72%;
+    --sidebar-border: 330 100% 45%;
+    --sidebar-ring: 330 100% 62%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    line-height: 1.4;
+    /* Light CRT scanline overlay — subtle on light bg */
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(160, 80, 160, 0.04) 2px,
+        rgba(160, 80, 160, 0.04) 4px
+      );
+    background-attachment: fixed;
   }
 
+  /* Headings → Press Start 2P */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Fraunces', serif;
-    letter-spacing: -0.03em;
-    font-weight: 500;
+    font-family: 'Press Start 2P', monospace;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+    line-height: 1.6;
+    text-shadow: 2px 2px 0px hsl(320 80% 65% / 0.35);
+  }
+
+  input, textarea {
+    font-family: 'VT323', monospace;
+    font-size: 20px;
   }
 }
 
 @layer utilities {
+
+  /* Pixel font utilities */
   .font-display {
-    font-family: 'Fraunces', serif;
-    letter-spacing: -0.03em;
-  }
-
-  .font-ui {
-    font-family: 'Nunito', sans-serif;
-    letter-spacing: 0.02em;
-  }
-
-  .font-journal {
-    font-family: 'Caveat', cursive;
+    font-family: 'Press Start 2P', monospace;
+    letter-spacing: 0.05em;
     line-height: 1.6;
   }
 
+  .font-ui {
+    font-family: 'VT323', monospace;
+    letter-spacing: 0.05em;
+    font-size: 1.1em;
+  }
+
+  .font-journal {
+    font-family: 'VT323', monospace;
+    line-height: 1.6;
+    font-size: 1.15em;
+  }
+
+  /* Pixel block shadow */
   .shadow-ceramic {
     box-shadow: var(--shadow-ceramic);
   }
 
+  /* Pebble → Pixel Block */
   .pebble {
-    @apply rounded-[24px] shadow-ceramic;
+    border-radius: 0 !important;
+    box-shadow: 4px 4px 0px 0px hsl(var(--border)), 8px 8px 0px 0px hsl(var(--border) / 0.35);
+    border: 2px solid hsl(var(--border));
   }
 
+  /* Page gradient — light pink to light purple */
   .page-gradient {
-    background: linear-gradient(135deg, hsl(340 80% 80%), hsl(300 60% 82%), hsl(260 60% 85%));
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(200, 100, 180, 0.04) 2px,
+        rgba(200, 100, 180, 0.04) 4px
+      ),
+      linear-gradient(135deg,
+        hsl(320 70% 92%) 0%,
+        hsl(300 60% 88%) 35%,
+        hsl(270 65% 88%) 65%,
+        hsl(255 60% 90%) 100%
+      );
   }
 
   .dark .page-gradient {
-    background: linear-gradient(135deg, hsl(330 70% 20%), hsl(280 40% 15%), hsl(240 30% 12%));
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 20, 100, 0.06) 2px,
+        rgba(255, 20, 100, 0.06) 4px
+      ),
+      linear-gradient(135deg,
+        hsl(330 100% 50%) 0%,
+        hsl(320 90% 28%) 35%,
+        hsl(310 80% 12%) 65%,
+        hsl(0 0% 4%) 100%
+      );
   }
 
+  /* Pixel glow variants for light palette */
+  .pixel-glow-pink {
+    color: hsl(320 80% 50%);
+    text-shadow: 0 0 6px hsl(320 80% 65%), 2px 2px 0px hsl(280 60% 60%);
+  }
+
+  .pixel-glow-purple {
+    color: hsl(270 70% 50%);
+    text-shadow: 0 0 6px hsl(270 70% 65%), 2px 2px 0px hsl(320 60% 65%);
+  }
+
+  /* Retro rounded → none */
+  .rounded-orb {
+    border-radius: 0 !important;
+  }
+
+  /* ── Animations ── */
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
@@ -163,19 +248,93 @@
     50% { opacity: 1; }
   }
 
+  @keyframes pixel-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  @keyframes scanline {
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+
+  /* Pixel walk — steppy bounce */
+  @keyframes pixel-walk {
+    0%, 100% { transform: translateY(0px); }
+    25%       { transform: translateY(-4px); }
+    50%       { transform: translateY(-8px); }
+    75%       { transform: translateY(-4px); }
+  }
+
   .animate-float {
-    animation: float 4s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+    animation: pixel-walk 0.8s steps(4, end) infinite;
   }
 
   .animate-breathe {
-    animation: breathe 14s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+    animation: breathe 14s steps(8, end) infinite;
   }
 
   .animate-gentle-pulse {
-    animation: gentle-pulse 3s ease-in-out infinite;
+    animation: gentle-pulse 1.2s steps(2, end) infinite;
+  }
+
+  .animate-pixel-blink {
+    animation: pixel-blink 1s steps(1, end) infinite;
+  }
+
+  /* Scrollbar — hide on scroll containers */
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Pixel scrollbar */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border: none;
   }
 
   .prose-safe {
     @apply max-w-[55ch] leading-relaxed;
   }
+}
+
+/* ── Global: strip ALL border-radius ── */
+*, *::before, *::after {
+  border-radius: 0 !important;
+}
+
+*:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* CRT vignette — soft pink tint on edges */
+#root::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(180, 80, 160, 0.18) 100%);
+}
+
+/* Moving scanline */
+#root::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(transparent, rgba(220, 120, 200, 0.05), transparent);
+  pointer-events: none;
+  z-index: 9998;
+  animation: scanline 6s linear infinite;
 }

@@ -8,7 +8,7 @@ export default function Resources() {
       <TopBar />
 
       <div className="pt-28 md:pt-20 pb-12 px-6 max-w-md mx-auto">
-        <h1 className="text-2xl font-display text-foreground mb-2">You Are Not Alone</h1>
+        <h1 className="text-xs md:text-sm font-display text-foreground mb-2 leading-loose">You Are Not Alone</h1>
         <p className="text-sm font-ui text-muted-foreground mb-8 prose-safe">
           If you need to talk to someone, these resources are here for you. All calls are confidential.
         </p>

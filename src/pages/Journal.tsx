@@ -22,7 +22,7 @@ export default function Journal() {
       <TopBar />
 
       <div className="pt-28 md:pt-20 pb-12 px-6 max-w-md mx-auto">
-        <h1 className="text-2xl font-display text-foreground mb-2">Private Journal</h1>
+        <h1 className="text-sm md:text-base font-display text-foreground mb-2 leading-loose">Private Journal</h1>
         <p className="text-sm font-ui text-muted-foreground mb-6">
           A safe space for your thoughts. +2 petals per entry.
         </p>

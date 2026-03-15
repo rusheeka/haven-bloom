@@ -45,7 +45,7 @@ export default function Breathing() {
 
       <div className="pt-28 md:pt-20 pb-12 px-6 flex flex-col items-center justify-center min-h-[80vh]">
         <div className="flex flex-col items-center text-center max-w-sm">
-          <h1 className="text-2xl font-display text-foreground mb-2">Hold My Hand</h1>
+          <h1 className="text-sm md:text-base font-display text-foreground mb-2 leading-loose">Hold My Hand</h1>
           <p className="text-sm font-ui text-muted-foreground mb-10">
             Breathe with the circle. Take your time.
           </p>

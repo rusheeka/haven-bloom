@@ -31,7 +31,7 @@ export default function Affirmations() {
 
       <div className="pt-28 md:pt-20 pb-12 px-6 flex flex-col items-center justify-center min-h-[80vh]">
         <div className="flex flex-col items-center text-center max-w-md w-full">
-          <h1 className="text-2xl font-display text-foreground mb-2">Affirmations</h1>
+          <h1 className="text-sm md:text-base font-display text-foreground mb-2 leading-loose">Affirmations</h1>
           <p className="text-sm font-ui text-muted-foreground mb-6">Words to hold close.</p>
 
           <div className="flex gap-2 mb-8">

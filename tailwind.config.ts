@@ -14,9 +14,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Fraunces", "serif"],
-        sans: ["Nunito", "sans-serif"],
-        journal: ["Caveat", "cursive"],
+        display: ["'Press Start 2P'", "monospace"],
+        sans: ["'VT323'", "monospace"],
+        ui: ["'VT323'", "monospace"],
+        journal: ["'VT323'", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -68,11 +69,11 @@ export default {
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 4px)",
-        sm: "calc(var(--radius) - 8px)",
-        pebble: "24px",
-        orb: "32px",
+        lg: "0px",
+        md: "0px",
+        sm: "0px",
+        pebble: "0px",
+        orb: "0px",
       },
       keyframes: {
         "accordion-down": {

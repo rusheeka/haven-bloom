@@ -54,7 +54,7 @@ export default function Chat() {
         <TopBar />
         <div className="pt-28 md:pt-20 pb-12 px-6 flex flex-col items-center justify-center min-h-[80vh]">
           <div className="max-w-sm text-center">
-            <h1 className="text-2xl font-display text-foreground mb-4">Safe Chat</h1>
+            <h1 className="text-sm md:text-base font-display text-foreground mb-4 leading-loose">Safe Chat</h1>
             <div className="bg-card/50 backdrop-blur-xl rounded-orb p-6 shadow-ceramic mb-6">
               <p className="text-sm font-ui text-foreground/80 leading-relaxed mb-4">
                 This is an anonymous, supportive space. Before entering:
@@ -86,7 +86,7 @@ export default function Chat() {
       <TopBar />
 
       <div className="pt-28 md:pt-20 pb-12 px-6 max-w-md mx-auto flex flex-col h-[80vh]">
-        <h1 className="text-xl font-display text-foreground mb-1">Safe Chat</h1>
+        <h1 className="text-xs md:text-sm font-display text-foreground mb-1 leading-loose">Safe Chat</h1>
 
         <div className="bg-warmth/10 rounded-pebble px-3 py-2 mb-3 text-[10px] font-ui text-muted-foreground">
           Need help now? <a href="https://988lifeline.org" target="_blank" rel="noopener" className="underline text-foreground">988 Lifeline</a> · <a href="https://www.rainn.org" target="_blank" rel="noopener" className="underline text-foreground">RAINN</a>

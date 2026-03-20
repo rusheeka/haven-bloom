@@ -9,6 +9,16 @@ export default function Journal() {
   const [text, setText] = useState("");
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   const [view, setView] = useState<"write" | "history">("write");
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+
+  const entriesByDate = user.journalEntries.reduce((acc, entry) => {
+    const dateStr = new Date(entry.date).toLocaleDateString();
+    if (!acc[dateStr]) acc[dateStr] = [];
+    acc[dateStr].push(entry);
+    return acc;
+  }, {} as Record<string, typeof user.journalEntries>);
+
+  const distinctDates = Object.keys(entriesByDate);
 
   const handleSubmit = () => {
     if (!text.trim() || !selectedMood) return;
@@ -32,7 +42,7 @@ export default function Journal() {
             {(["write", "history"] as const).map((tab) => (
               <button
                 key={tab}
-                onClick={() => setView(tab)}
+                onClick={() => { setView(tab); setSelectedDate(null); }}
                 className={`px-4 py-2 rounded-full text-xs font-ui font-semibold transition-colors duration-300 ${
                   view === tab ? "bg-primary/20 text-foreground" : "text-muted-foreground hover:bg-muted/50"
                 }`}
@@ -82,30 +92,68 @@ export default function Journal() {
               </motion.button>
             </motion.div>
           ) : (
-            <div className="flex flex-col gap-3 w-full">
+            <div className="flex flex-col gap-4 w-full">
               {user.journalEntries.length === 0 ? (
                 <p className="text-sm font-ui text-muted-foreground text-center py-10">
                   No entries yet. Your journal awaits. 📔
                 </p>
-              ) : (
-                <AnimatePresence>
-                  {user.journalEntries.map((entry) => (
-                    <motion.div
-                      key={entry.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="bg-card/50 backdrop-blur-xl rounded-orb p-4 shadow-ceramic text-left"
+              ) : selectedDate === null ? (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4"
+                >
+                  {distinctDates.map((date) => (
+                    <motion.button
+                      key={date}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      onClick={() => setSelectedDate(date)}
+                      className="bg-card/50 backdrop-blur-xl rounded-[1.5rem] p-5 shadow-ceramic flex flex-col items-center justify-center gap-2 transition-all duration-300 hover:bg-card/80 border border-border/40 hover:border-primary/40 text-center"
                     >
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-lg">{entry.mood}</span>
-                        <span className="text-[10px] font-ui text-muted-foreground">
-                          {new Date(entry.date).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <p className="font-journal text-base text-foreground/90 leading-relaxed break-words whitespace-pre-wrap">{entry.text}</p>
-                    </motion.div>
+                      <span className="text-2xl text-primary/80 opacity-80">🗓️</span>
+                      <span className="text-xs md:text-sm font-ui font-bold text-foreground mt-1">{date}</span>
+                      <span className="text-[10px] font-ui font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
+                        {entriesByDate[date].length} {entriesByDate[date].length === 1 ? 'entry' : 'entries'}
+                      </span>
+                    </motion.button>
                   ))}
-                </AnimatePresence>
+                </motion.div>
+              ) : (
+                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="flex flex-col gap-4 w-full">
+                  <div className="flex items-center justify-between px-2 mb-2">
+                    <button 
+                      onClick={() => setSelectedDate(null)}
+                      className="text-[11px] md:text-xs font-ui font-semibold text-muted-foreground hover:text-foreground flex items-center gap-1.5 transition-colors bg-muted/40 hover:bg-muted/80 px-3 py-1.5 rounded-full"
+                    >
+                      <span>←</span> Back
+                    </button>
+                    <span className="text-xs md:text-sm font-ui font-bold text-foreground bg-card/60 px-3 py-1.5 rounded-full border border-border/30">
+                      {selectedDate}
+                    </span>
+                  </div>
+                  
+                  <div className="flex flex-col gap-3">
+                    <AnimatePresence>
+                      {entriesByDate[selectedDate]?.map((entry) => (
+                        <motion.div
+                          key={entry.id}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="bg-card/50 backdrop-blur-xl rounded-orb p-5 shadow-ceramic text-left border border-border/20"
+                        >
+                          <div className="flex justify-between items-center mb-3">
+                            <span className="text-xl drop-shadow-sm">{entry.mood}</span>
+                            <span className="text-[10px] font-ui font-medium text-muted-foreground bg-muted/30 px-2 py-1 rounded-full">
+                              {new Date(entry.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                          </div>
+                          <p className="font-journal text-base md:text-lg text-foreground/90 leading-relaxed break-words whitespace-pre-wrap">{entry.text}</p>
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
               )}
             </div>
           )}

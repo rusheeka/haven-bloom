@@ -43,8 +43,8 @@ export default function Breathing() {
     <div className="min-h-screen page-gradient">
       <TopBar />
 
-      <div className="pt-28 md:pt-20 pb-12 px-6 flex flex-col items-center justify-center min-h-[80vh]">
-        <div className="flex flex-col items-center text-center max-w-sm">
+      <div className="pt-40 md:pt-36 pb-12 px-6 flex flex-col items-center min-h-[80vh]">
+        <div className="flex flex-col items-center text-center max-w-sm my-auto">
           <h1 className="text-sm md:text-base font-display text-foreground mb-2 leading-loose">Hold My Hand</h1>
           <p className="text-sm font-ui text-muted-foreground mb-10">
             Breathe with the circle. Take your time.

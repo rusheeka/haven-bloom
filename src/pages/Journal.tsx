@@ -102,7 +102,7 @@ export default function Journal() {
                           {new Date(entry.date).toLocaleDateString()}
                         </span>
                       </div>
-                      <p className="font-journal text-base text-foreground/90 leading-relaxed">{entry.text}</p>
+                      <p className="font-journal text-base text-foreground/90 leading-relaxed break-words whitespace-pre-wrap">{entry.text}</p>
                     </motion.div>
                   ))}
                 </AnimatePresence>

@@ -50,14 +50,14 @@ export default function Home() {
                 className="w-28 h-28 md:w-36 md:h-36 object-contain drop-shadow-2xl"
               />
             </motion.div>
-            <h1 className="text-[clamp(2rem,5vw,4.5rem)] leading-none font-display font-medium text-foreground text-center mb-4 tracking-tight -mt-2 md:-mt-4">
+            <h1 className="text-[clamp(1.5rem,3.5vw,3.2rem)] leading-none font-display font-medium text-foreground text-center mb-4 tracking-tight -mt-2 md:-mt-4">
               Welcome to <br/>
               <span className="inline-block bg-primary/20 text-foreground px-4 py-1 rounded-2xl mt-2 border border-primary/30 backdrop-blur-sm">
                 your world
               </span>
               , {user.username}.
             </h1>
-            <p className="text-sm md:text-base font-ui text-muted-foreground mt-6 uppercase tracking-[0.2em]">
+            <p className="text-xs md:text-sm font-ui text-muted-foreground mt-4 uppercase tracking-[0.2em]">
               Scroll to explore <span className="inline-block ml-2 md:hidden animate-bounce">👉</span>
             </p>
           </motion.div>

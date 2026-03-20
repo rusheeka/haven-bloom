@@ -38,14 +38,14 @@ export default function TopBar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-xl border-b border-border/40 shadow-sm">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-4">
         {/* Logo */}
-        <Link to="/home" className="flex items-center gap-2 z-50">
+        <Link to="/home" className="flex items-center gap-2 z-50 flex-shrink-0">
           <span className="text-sm font-display font-bold text-foreground tracking-tight">UNHEARD</span>
         </Link>
 
         {/* Nav links - Desktop inline (xl and up) */}
-        <nav className="hidden xl:flex items-center gap-1.5 ml-8 mr-auto">
+        <nav className="hidden xl:flex flex-1 items-center justify-start gap-1.5 overflow-x-auto hide-scrollbar px-2">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
@@ -66,7 +66,7 @@ export default function TopBar() {
         </nav>
 
         {/* Right side: petals + settings + mobile toggle */}
-        <div className="flex items-center gap-3 z-50">
+        <div className="flex items-center gap-3 z-50 flex-shrink-0 ml-auto">
           <PetalCounter />
 
           {/* Settings button */}

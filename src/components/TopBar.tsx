@@ -44,8 +44,8 @@ export default function TopBar() {
           <span className="text-sm font-display font-bold text-foreground tracking-tight">UNHEARD</span>
         </Link>
 
-        {/* Nav links - Desktop inline (lg and up) */}
-        <nav className="hidden lg:flex items-center gap-1.5 ml-8 mr-auto">
+        {/* Nav links - Desktop inline (xl and up) */}
+        <nav className="hidden xl:flex items-center gap-1.5 ml-8 mr-auto">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
@@ -53,7 +53,7 @@ export default function TopBar() {
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-ui font-semibold transition-colors duration-300 ${
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-ui font-semibold flex-shrink-0 whitespace-nowrap transition-colors duration-300 ${
                     isActive ? "bg-primary/20 text-foreground" : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
                   }`}
                 >
@@ -163,7 +163,7 @@ export default function TopBar() {
               setMobileMenuOpen(!mobileMenuOpen);
               if (settingsOpen) setSettingsOpen(false);
             }}
-            className="lg:hidden w-9 h-9 rounded-full bg-primary/10 hover:bg-primary/20 text-foreground flex items-center justify-center transition-colors"
+            className="xl:hidden w-9 h-9 rounded-full bg-primary/10 hover:bg-primary/20 text-foreground flex items-center justify-center transition-colors"
             aria-label="Toggle Menu"
           >
             <span className="text-sm font-ui">{mobileMenuOpen ? "✖" : "☰"}</span>
@@ -179,7 +179,7 @@ export default function TopBar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="lg:hidden overflow-hidden bg-card/95 backdrop-blur-3xl border-t border-border/40"
+            className="xl:hidden overflow-hidden bg-card/95 backdrop-blur-3xl border-t border-border/40"
           >
             <div className="flex flex-col px-4 py-4 gap-2 max-w-md mx-auto">
               {navItems.map((item) => {

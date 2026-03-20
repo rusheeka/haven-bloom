@@ -50,10 +50,10 @@ export default function Chat() {
 
   if (!agreed) {
     return (
-      <div className="min-h-screen page-gradient">
+      <div className="min-h-screen page-gradient flex flex-col">
         <TopBar />
-        <div className="pt-28 md:pt-20 pb-12 px-6 flex flex-col items-center justify-center min-h-[80vh]">
-          <div className="max-w-sm text-center">
+        <div className="flex-1 pt-32 md:pt-28 pb-12 px-6 flex flex-col items-center min-h-[80vh]">
+          <div className="w-full max-w-sm text-center my-auto">
             <h1 className="text-sm md:text-base font-display text-foreground mb-4 leading-loose">Safe Chat</h1>
             <div className="bg-card/50 backdrop-blur-xl rounded-orb p-6 shadow-ceramic mb-6">
               <p className="text-sm font-ui text-foreground/80 leading-relaxed mb-4">
@@ -82,10 +82,10 @@ export default function Chat() {
   }
 
   return (
-    <div className="min-h-screen page-gradient">
+    <div className="h-screen page-gradient flex flex-col overflow-hidden">
       <TopBar />
 
-      <div className="pt-28 md:pt-20 pb-12 px-6 max-w-md mx-auto flex flex-col h-[80vh]">
+      <div className="flex-1 pt-24 md:pt-28 pb-6 px-4 md:px-6 w-full max-w-2xl mx-auto flex flex-col h-full overflow-hidden">
         <h1 className="text-xs md:text-sm font-display text-foreground mb-1 leading-loose">Safe Chat</h1>
 
         <div className="bg-warmth/10 rounded-pebble px-3 py-2 mb-3 text-[10px] font-ui text-muted-foreground">

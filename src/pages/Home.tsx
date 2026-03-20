@@ -29,15 +29,15 @@ export default function Home() {
 
       <main 
         ref={scrollRef}
-        className="flex-1 w-full overflow-x-auto hide-scrollbar snap-x snap-mandatory flex flex-row items-center pt-24 pb-20 px-[5vw] gap-6 md:gap-12"
+        className="flex-1 w-full overflow-x-auto hide-scrollbar snap-x snap-mandatory flex flex-row items-stretch pt-24 md:pt-28 pb-12 px-[5vw] gap-6 md:gap-12"
       >
         {/* Hero Section / Chapter 1 */}
-        <div className="snap-center w-[90vw] h-[70vh] flex-shrink-0 flex flex-col items-center justify-center relative pt-8 md:pt-10">
+        <div className="snap-center w-[90vw] flex-shrink-0 flex flex-col items-center relative py-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-            className="flex flex-col items-center z-10"
+            className="flex flex-col items-center z-10 my-auto pb-4 max-h-full min-h-0"
           >
             <motion.div
               className="mb-0"
@@ -76,7 +76,7 @@ export default function Home() {
         {features.map((feat, i) => (
           <div 
             key={feat.path}
-            className="snap-center w-[85vw] sm:w-[60vw] lg:w-[40vw] h-[65vh] flex-shrink-0 flex items-center justify-center group"
+            className="snap-center w-[85vw] sm:w-[60vw] lg:w-[40vw] flex-shrink-0 flex flex-col justify-center group py-4 h-full min-h-0"
           >
             <motion.button
               initial={{ opacity: 0, x: 50 }}
@@ -86,7 +86,7 @@ export default function Home() {
               onClick={() => navigate(feat.path)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full h-full bg-card/60 backdrop-blur-2xl rounded-[2rem] p-8 md:p-12 shadow-ceramic flex flex-col items-center justify-center gap-6 transition-all duration-500 hover:bg-card/80 border border-border/40 hover:border-primary/50 relative overflow-hidden"
+              className="w-full flex-1 max-h-[80vh] bg-card/60 backdrop-blur-2xl rounded-[2rem] p-6 md:p-10 shadow-ceramic flex flex-col items-center justify-center gap-4 transition-all duration-500 hover:bg-card/80 border border-border/40 hover:border-primary/50 relative overflow-hidden my-auto min-h-0"
             >
               {/* Decorative background element per card */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2rem]" />

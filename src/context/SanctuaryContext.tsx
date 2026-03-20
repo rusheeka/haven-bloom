@@ -103,7 +103,7 @@ function loadActiveUser(): UserData | null {
     const activeUsername = localStorage.getItem(ACTIVE_KEY);
     if (!activeUsername) return null;
     const accounts = getAccounts();
-    const account = accounts.find((a) => a.username === activeUsername);
+    const account = accounts.find((a) => a.username.toLowerCase() === activeUsername.toLowerCase());
     return account?.data || null;
   } catch {}
   return null;
@@ -131,13 +131,36 @@ export function SanctuaryProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(DARK_MODE_KEY, String(isDarkMode));
   }, [isDarkMode]);
 
-  // Firebase Auth listener placeholder (optional if we strictly depend on localStorage for profile)
+  // Sync Firebase session with local storage database on load
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      // Syncing isLoggedIn with Firebase state (optional depending on app logic)
-      if (!firebaseUser && isLoggedIn) {
-        // If Firebase says logged out but we thought logged in, don't force logout 
-        // because we might rely on the local session for the "Anonymous" promise
+      if (firebaseUser) {
+        const username = firebaseUser.displayName;
+        if (username) {
+          const accounts = getAccounts();
+          let account = accounts.find((a) => a.username.toLowerCase() === username.toLowerCase());
+          
+          if (!account) {
+            // Reconstruct local profile if lost but Firebase survived
+            const newUser = createDefaultUser(username);
+            accounts.push({ username, password: "", data: newUser });
+            saveAccounts(accounts);
+            account = { username, password: "", data: newUser };
+          }
+          
+          // Force recovery of the local session from Firebase Truth
+          if (localStorage.getItem(ACTIVE_KEY) !== account.username) {
+            localStorage.setItem(ACTIVE_KEY, account.username);
+            setUser(account.data);
+            setIsLoggedIn(true);
+          }
+        }
+      } else {
+        if (isLoggedIn) {
+          localStorage.removeItem(ACTIVE_KEY);
+          setIsLoggedIn(false);
+          setUser(createDefaultUser("Guest"));
+        }
       }
     });
     return unsubscribe;
@@ -161,7 +184,7 @@ export function SanctuaryProvider({ children }: { children: React.ReactNode }) {
         setUser(account.data);
       }
       
-      localStorage.setItem(ACTIVE_KEY, username);
+      localStorage.setItem(ACTIVE_KEY, account ? account.username : username);
       setIsLoggedIn(true);
       return true;
     } catch (e) {

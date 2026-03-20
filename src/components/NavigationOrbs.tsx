@@ -8,7 +8,7 @@ const navItems = [
   { path: "/affirmations", label: "Affirm", emoji: "✨" },
   { path: "/stories", label: "Story Chain", emoji: "🌸" },
   { path: "/chat", label: "Chat", emoji: "💬" },
-  { path: "/resources", label: "Help", emoji: "🤍" },
+  { path: "/resources", label: "Help" },
 ];
 
 
@@ -24,10 +24,9 @@ export default function NavigationOrbs() {
             <motion.div
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.95 }}
-              className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-full transition-colors duration-300 ${
-              isActive ? "bg-primary/20" : "hover:bg-muted/50"}`
+              className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-full transition-colors duration-300 ${isActive ? "bg-primary/20" : "hover:bg-muted/50"}`
               }>
-              
+
               <span className="text-lg bg-transparent">{item.emoji}</span>
               <span className="text-[10px] font-ui font-semibold text-muted-foreground mx-px my-px">
                 {item.label}

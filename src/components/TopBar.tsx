@@ -11,7 +11,7 @@ const navItems = [
   { path: "/affirmations", label: "Affirm", emoji: "✨" },
   { path: "/stories", label: "Story Chain", emoji: "🌸" },
   { path: "/chat", label: "Chat", emoji: "💬" },
-  { path: "/resources", label: "Help", emoji: "🤍" },
+  { path: "/resources", label: "Help", emoji: "" },
 ];
 
 export default function TopBar() {
@@ -53,9 +53,8 @@ export default function TopBar() {
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-ui font-semibold flex-shrink-0 whitespace-nowrap transition-colors duration-300 ${
-                    isActive ? "bg-primary/20 text-foreground" : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
-                  }`}
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-ui font-semibold flex-shrink-0 whitespace-nowrap transition-colors duration-300 ${isActive ? "bg-primary/20 text-foreground" : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
+                    }`}
                 >
                   <span className="text-sm">{item.emoji}</span>
                   <span>{item.label}</span>
@@ -189,9 +188,8 @@ export default function TopBar() {
                     <motion.div
                       whileHover={{ x: 4 }}
                       whileTap={{ scale: 0.98 }}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-ui font-semibold transition-colors duration-300 ${
-                        isActive ? "bg-primary/20 text-foreground" : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                      }`}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-ui font-semibold transition-colors duration-300 ${isActive ? "bg-primary/20 text-foreground" : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                        }`}
                     >
                       <span className="text-lg">{item.emoji}</span>
                       <span>{item.label}</span>

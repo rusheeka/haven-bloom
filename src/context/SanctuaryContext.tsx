@@ -18,6 +18,7 @@ interface UserData {
 
 export interface JournalEntry {
   id: string;
+  title?: string;
   text: string;
   mood: string;
   date: string;
@@ -52,7 +53,7 @@ interface SanctuaryContextType {
   isDarkMode: boolean;
   addPetals: (amount: number, reason: string) => void;
   checkIn: () => boolean;
-  addJournalEntry: (text: string, mood: string) => void;
+  addJournalEntry: (text: string, mood: string, title?: string) => void;
   toggleFavoriteAffirmation: (index: number) => void;
   addStory: (text: string) => void;
   sendWarmth: (storyId: string, type: "🌱" | "💚" | "🤍") => void;
@@ -256,8 +257,8 @@ export function SanctuaryProvider({ children }: { children: React.ReactNode }) {
     return true;
   }, [user.lastCheckIn, user.streak]);
 
-  const addJournalEntry = useCallback((text: string, mood: string) => {
-    const entry: JournalEntry = { id: crypto.randomUUID(), text, mood, date: new Date().toISOString() };
+  const addJournalEntry = useCallback((text: string, mood: string, title?: string) => {
+    const entry: JournalEntry = { id: crypto.randomUUID(), title, text, mood, date: new Date().toISOString() };
     setUser((prev) => ({ ...prev, journalEntries: [entry, ...prev.journalEntries], petals: prev.petals + 2 }));
   }, []);
 

@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { generateAnonymousName } from "@/lib/sanctuary-data";
+import { auth } from "@/lib/firebase";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, updateProfile, signOut } from "firebase/auth";
 
 interface UserData {
   anonymousId: string;
@@ -56,8 +58,8 @@ interface SanctuaryContextType {
   sendWarmth: (storyId: string, type: "🌱" | "💚" | "🤍") => void;
   addChatMessage: (text: string, room: string) => void;
   reactToMessage: (msgId: string, type: "💙" | "🙏" | "🌸" | "🤗") => void;
-  loginUser: (username: string, password: string) => boolean;
-  registerUser: (username: string, password: string) => boolean;
+  loginUser: (username: string, password: string) => Promise<boolean>;
+  registerUser: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
   toggleDarkMode: () => void;
   changeUsername: (newName: string) => void;
@@ -129,29 +131,73 @@ export function SanctuaryProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(DARK_MODE_KEY, String(isDarkMode));
   }, [isDarkMode]);
 
-  const loginUser = useCallback((username: string, password: string): boolean => {
-    const accounts = getAccounts();
-    const account = accounts.find((a) => a.username === username && a.password === password);
-    if (!account) return false;
-    localStorage.setItem(ACTIVE_KEY, username);
-    setUser(account.data);
-    setIsLoggedIn(true);
-    return true;
+  // Firebase Auth listener placeholder (optional if we strictly depend on localStorage for profile)
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      // Syncing isLoggedIn with Firebase state (optional depending on app logic)
+      if (!firebaseUser && isLoggedIn) {
+        // If Firebase says logged out but we thought logged in, don't force logout 
+        // because we might rely on the local session for the "Anonymous" promise
+      }
+    });
+    return unsubscribe;
+  }, [isLoggedIn]);
+
+  const loginUser = useCallback(async (username: string, password: string): Promise<boolean> => {
+    try {
+      const dummyEmail = `${username.toLowerCase()}@unheard.local`;
+      await signInWithEmailAndPassword(auth, dummyEmail, password);
+      
+      const accounts = getAccounts();
+      const account = accounts.find((a) => a.username.toLowerCase() === username.toLowerCase());
+      
+      if (!account) {
+        // Fallback if local account was deleted but Firebase account exists
+        const newUser = createDefaultUser(username);
+        accounts.push({ username, password: "", data: newUser });
+        saveAccounts(accounts);
+        setUser(newUser);
+      } else {
+        setUser(account.data);
+      }
+      
+      localStorage.setItem(ACTIVE_KEY, username);
+      setIsLoggedIn(true);
+      return true;
+    } catch (e) {
+      console.error("Login failed:", e);
+      return false;
+    }
   }, []);
 
-  const registerUser = useCallback((username: string, password: string): boolean => {
-    const accounts = getAccounts();
-    if (accounts.some((a) => a.username === username)) return false;
-    const newUser = createDefaultUser(username);
-    accounts.push({ username, password, data: newUser });
-    saveAccounts(accounts);
-    localStorage.setItem(ACTIVE_KEY, username);
-    setUser(newUser);
-    setIsLoggedIn(true);
-    return true;
+  const registerUser = useCallback(async (username: string, password: string): Promise<boolean> => {
+    try {
+      const dummyEmail = `${username.toLowerCase()}@unheard.local`;
+      
+      // We still check local accounts to avoid overriding local data unexpectedly
+      const accounts = getAccounts();
+      if (accounts.some((a) => a.username.toLowerCase() === username.toLowerCase())) return false;
+
+      // Register with Firebase
+      const cred = await createUserWithEmailAndPassword(auth, dummyEmail, password);
+      await updateProfile(cred.user, { displayName: username });
+
+      const newUser = createDefaultUser(username);
+      accounts.push({ username, password: "", data: newUser }); // Store empty password locally
+      saveAccounts(accounts);
+      
+      localStorage.setItem(ACTIVE_KEY, username);
+      setUser(newUser);
+      setIsLoggedIn(true);
+      return true;
+    } catch (e) {
+      console.error("Registration failed:", e);
+      return false;
+    }
   }, []);
 
   const logout = useCallback(() => {
+    signOut(auth).catch(console.error);
     localStorage.removeItem(ACTIVE_KEY);
     setIsLoggedIn(false);
     setUser(createDefaultUser("Guest"));

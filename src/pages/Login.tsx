@@ -11,7 +11,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
@@ -31,14 +31,14 @@ export default function Login() {
     }
 
     if (isRegister) {
-      const success = registerUser(username.trim(), password);
+      const success = await registerUser(username.trim(), password);
       if (success) {
         navigate("/home");
       } else {
         setError("Username already taken. Try another one.");
       }
     } else {
-      const success = loginUser(username.trim(), password);
+      const success = await loginUser(username.trim(), password);
       if (success) {
         navigate("/home");
       } else {

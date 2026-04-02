@@ -19,10 +19,9 @@ const sampleMessages = [
 const crisisKeywords = ["kill myself", "self-harm", "suicide", "end it all", "want to die"];
 
 export default function Chat() {
-  const { user, addChatMessage, reactToMessage } = useSanctuary();
+  const { user, addChatMessage, reactToMessage, setChatAgreed } = useSanctuary();
   const [activeRoom, setActiveRoom] = useState("general");
   const [message, setMessage] = useState("");
-  const [agreed, setAgreed] = useState(() => localStorage.getItem("unheard_chat_agreed") === "true");
   const [crisisAlert, setCrisisAlert] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -44,11 +43,10 @@ export default function Chat() {
   };
 
   const handleAgree = () => {
-    setAgreed(true);
-    localStorage.setItem("unheard_chat_agreed", "true");
+    setChatAgreed(true);
   };
 
-  if (!agreed) {
+  if (!user.chatAgreed) {
     return (
       <div className="min-h-screen page-gradient flex flex-col">
         <TopBar />

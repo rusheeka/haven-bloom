@@ -5,7 +5,7 @@ import { moods } from "@/lib/sanctuary-data";
 import TopBar from "@/components/TopBar";
 
 export default function Journal() {
-  const { user, addJournalEntry } = useSanctuary();
+  const { user, addJournalEntry, deleteJournalEntry } = useSanctuary();
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
@@ -13,8 +13,9 @@ export default function Journal() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedEntry, setSelectedEntry] = useState<any | null>(null);
 
-  const entriesByDate = user.journalEntries.reduce((acc, entry) => {
-    const dateStr = new Date(entry.date).toLocaleDateString('en-GB'); // Formats as DD/MM/YYYY
+  const entriesByDate = (user.journalEntries || []).reduce((acc, entry) => {
+    const date = entry.date ? new Date(entry.date) : new Date();
+    const dateStr = isNaN(date.getTime()) ? "Unknown Date" : date.toLocaleDateString('en-GB'); 
     if (!acc[dateStr]) acc[dateStr] = [];
     acc[dateStr].push(entry);
     return acc;
@@ -28,6 +29,13 @@ export default function Journal() {
     setText("");
     setTitle("");
     setSelectedMood(null);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (window.confirm("Delete this entry forever? 🌱")) {
+      await deleteJournalEntry(id);
+      setSelectedEntry(null);
+    }
   };
 
   return (
@@ -178,12 +186,20 @@ export default function Journal() {
               ) : (
                 <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="flex flex-col gap-3 w-full">
                   <div className="flex items-center justify-between px-2 mb-2">
-                    <button 
-                      onClick={() => setSelectedEntry(null)}
-                      className="text-[11px] md:text-xs font-ui font-semibold text-muted-foreground hover:text-foreground flex items-center gap-1.5 transition-colors bg-muted/40 hover:bg-muted/80 px-3 py-1.5 rounded-full"
-                    >
-                      <span>←</span> Entries
-                    </button>
+                    <div className="flex gap-2">
+                      <button 
+                        onClick={() => setSelectedEntry(null)}
+                        className="text-[11px] md:text-xs font-ui font-semibold text-muted-foreground hover:text-foreground flex items-center gap-1.5 transition-colors bg-muted/40 hover:bg-muted/80 px-3 py-1.5 rounded-full"
+                      >
+                        <span>←</span> Entries
+                      </button>
+                      <button 
+                        onClick={() => handleDelete(selectedEntry.id)}
+                        className="text-[11px] md:text-xs font-ui font-semibold text-rose-400 hover:text-rose-600 flex items-center gap-1.5 transition-colors bg-rose-400/10 hover:bg-rose-400/20 px-3 py-1.5 rounded-full"
+                      >
+                        <span>🗑️</span> Delete
+                      </button>
+                    </div>
                     <div className="flex items-center gap-2">
                       <span className="text-xl drop-shadow-sm">{selectedEntry.mood}</span>
                       <span className="text-[10px] font-ui font-medium text-muted-foreground bg-muted/30 px-2 py-1 rounded-full">

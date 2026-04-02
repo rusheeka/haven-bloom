@@ -21,8 +21,11 @@ export default function Garden() {
   const [checkedIn, setCheckedIn] = useState(false);
 
   useEffect(() => {
-    const didCheckIn = checkIn();
-    if (didCheckIn) setCheckedIn(true);
+    const handleCheckIn = async () => {
+      const didCheckIn = await checkIn();
+      if (didCheckIn) setCheckedIn(true);
+    };
+    handleCheckIn();
   }, []);
 
   const progress = Math.min((user.petals / 80) * 100, 100);
